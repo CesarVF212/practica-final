@@ -4,7 +4,7 @@ import "./LoginRegisterBox.css";
 import Logo from "../imgs/logo.png";
 import React from "react";
 
-export default function LoginBox() {
+export default function RegisterBox() {
   const LoginPostRequest = async (email, password) => {
     var token;
 
@@ -45,8 +45,8 @@ export default function LoginBox() {
         <img src={Logo} alt="Logo" />
       </span>
       <span>
-        <div className="form-box" id="login-form-box">
-          <h2>LOGIN</h2>
+        <div className="form-box" id="register-form-box">
+          <h2>REGISTER</h2>
           <form
             action="login-form"
             onSubmit={(e) => {
@@ -56,6 +56,14 @@ export default function LoginBox() {
               LoginPostRequest(email, password); // Llama a la función de solicitud POST
             }}
           >
+            <div>
+              <label htmlFor="name-box">Nombre:</label>
+              <input type="text" id="name-box" name="name" />
+            </div>
+            <div>
+              <label htmlFor="lastname-box">Apellidos:</label>
+              <input type="text" id="lastname-box" name="lastname" />
+            </div>
             <div>
               <label htmlFor="email-box">Correo:</label>
               <input type="email" id="email-box" name="email" />
