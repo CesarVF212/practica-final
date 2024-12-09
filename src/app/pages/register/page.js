@@ -2,9 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import "./../components/LoginRegisterBox.css";
+import "../../components/LoginRegisterBox.css";
 
-import LogoBig from "../components/LogoBig";
+import LogoBig from "../../components/LogoBig";
 
 export default function Register() {
   return (
@@ -45,7 +45,7 @@ export default function Register() {
                 <input type="password" id="password-box" name="password" />
               </div>
               <div className="buttons-align">
-                <Link href="/login">
+                <Link href="../pages/login">
                   <button id="back-button" type="button">
                     Back
                   </button>

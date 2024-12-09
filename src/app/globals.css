@@ -2,14 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "Title";
+  src: url("/fonts/Roman SD.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
-  --background: #ffffff;
+  --background: #c2b5a3;
   --foreground: #171717;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #c2b5a3;
     --foreground: #ededed;
   }
 }

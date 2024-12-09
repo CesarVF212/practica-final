@@ -12,13 +12,12 @@ body {
   align-items: center;
   height: 100vh;
   width: 100vw;
-  background-color: #c2b5a3;
   overflow: hidden;
 }
 
 #title {
   margin-top: 1vh;
-  font-size: 4rem;
+  font-size: rem;
   color: black;
   font-family: "Title", sans-serif;
   display: flex;

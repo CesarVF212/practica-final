@@ -2,9 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import "./../components/LoginRegisterBox.css";
+import "../../components/LoginRegisterBox.css";
 
-import LogoBig from "../components/LogoBig";
+import LogoBig from "../../components/LogoBig";
 
 export default function Login() {
   return (
@@ -25,7 +25,7 @@ export default function Login() {
                 e.preventDefault();
                 const email = document.getElementById("email-box").value;
                 const password = document.getElementById("password-box").value;
-                LoginPostRequest(email, password); // Llama a la función de solicitud POST
+                LoginPostRequest(email, password);
               }}
             >
               <div>
@@ -40,7 +40,7 @@ export default function Login() {
                 <button id="login-button" type="submit">
                   Submit
                 </button>
-                <Link href="/register">
+                <Link href="../pages/register">
                   <button id="register-button" type="button">
                     Register
                   </button>
