@@ -9,15 +9,15 @@ import LogoBig from "../../components/LogoBig";
 export default function Register() {
   return (
     <div>
-      <div id="title">
+      <div class>
         <h1>CAESAR'S ADMINISTRATION</h1>
       </div>
-      <div id="general-box">
+      <div className="flex flex-row">
         <span>
           <LogoBig></LogoBig>
         </span>
         <span>
-          <div className="form-box" id="register-form-box">
+          <div className="form-box w-[50vw] h-[65vh]">
             <h2>REGISTER</h2>
             <form
               action="login-form"
@@ -44,13 +44,13 @@ export default function Register() {
                 <label htmlFor="password-box">Contraseña:</label>
                 <input type="password" id="password-box" name="password" />
               </div>
-              <div className="buttons-align">
+              <div className="flex flex-row justify-between">
                 <Link href="../pages/login">
-                  <button id="back-button" type="button">
+                  <button className="bg-red-500 text-white font-bold py-2 px-4 rounded">
                     Back
                   </button>
                 </Link>
-                <button id="login-button" type="submit">
+                <button className="bg-green-500 text-white font-bold py-2 px-4 rounded">
                   Submit
                 </button>
               </div>

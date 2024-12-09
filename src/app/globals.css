@@ -14,21 +14,30 @@
   --foreground: #171717;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #c2b5a3;
-    --foreground: #ededed;
-  }
-}
-
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+/* DEFINIMOS TEXTOS */
+
+h1 {
+  font-family: Title, sans-serif;
+  font-size: 4rem;
+}
+
+h2 {
+  font-size: 3rem;
+  font-weight: 700;
+  text-decoration: underline;
 }
