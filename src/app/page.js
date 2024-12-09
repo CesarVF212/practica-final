@@ -1,9 +1,10 @@
+"use client";
+
 import Image from "next/image";
-import LoginBox from "./components/LoginBox";
-import RegisterBox from "./components/RegisterBox";
+import { useRouter } from "next/navigation";
 
 import "./globals.css";
 
 export default function Home() {
-  return <RegisterBox></RegisterBox>;
+  return useRouter().push("/login");
 }
