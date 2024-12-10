@@ -3,13 +3,15 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-import "../../globals.css";
-import "../../components/Styles_Forms.css";
+import "../globals.css";
+import "../components/Styles_Forms.css";
 
-import LogoBig from "../../components/LogoBig";
+import LogoBig from "../components/LogoBig";
 
-function LoginPostRequest(email, password) {
-  const url = "https://bildy-rpmaya.koyeb.app/api/user/login";
+// Hacemos que RegisterPostRequest retorne una promesa
+function RegisterPostRequest(email, password) {
+  const url = "https://bildy-rpmaya.koyeb.app/api/user/register";
+
   const data = {
     email: email,
     password: password,
@@ -24,23 +26,23 @@ function LoginPostRequest(email, password) {
   })
     .then((response) => {
       if (!response.ok) {
-        throw new Error("El correo o la contraseña no son correctos");
+        throw new Error("Ha ocurrido un error al registrarse");
       }
       return response.json();
     })
     .then((result) => {
       console.log(result);
       const token = result.token;
-      localStorage.setItem("jwt", token);
-      return true;
+      localStorage.setItem("jwt_register", token);
+      return true; // Retorna true si el registro es exitoso
     })
     .catch((error) => {
       console.error(error);
-      return false;
+      return false; // Retorna false si hay un error
     });
 }
 
-export default function Login() {
+export default function Register() {
   const router = useRouter();
 
   return (
@@ -53,26 +55,34 @@ export default function Login() {
           <LogoBig />
         </span>
         <span>
-          <div className="form-box w-[30vw] h-[42vh] ">
-            <h2>LOGIN</h2>
+          <div className="form-box w-[40vw] h-[60vh]">
+            <h2>REGISTER</h2>
             <form
-              className="w-[80%]"
               action="login-form"
+              className="w-[80%]"
               onSubmit={(e) => {
                 e.preventDefault();
                 const email = document.getElementById("email-box").value;
                 const password = document.getElementById("password-box").value;
 
-                LoginPostRequest(email, password).then((success) => {
+                RegisterPostRequest(email, password).then((success) => {
                   if (success) {
-                    router.push("/pages/main");
+                    router.push("./verification"); // Redirige al usuario después de un registro exitoso
                   } else {
-                    alert("El correo o la contraseña no son correctos");
+                    alert("Ha ocurrido un error al registrarse");
                   }
                 });
               }}
             >
               <br />
+              <div>
+                <label htmlFor="name-box">Nombre:</label>
+                <input type="text" id="name-box" name="name" />
+              </div>
+              <div>
+                <label htmlFor="lastname-box">Apellidos:</label>
+                <input type="text" id="lastname-box" name="lastname" />
+              </div>
               <div>
                 <label htmlFor="email-box">Correo:</label>
                 <input type="email" id="email-box" name="email" />
@@ -82,16 +92,13 @@ export default function Login() {
                 <input type="password" id="password-box" name="password" />
               </div>
               <div className="flex flex-row justify-between">
-                <Link href="../pages/register">
-                  <button className="bg-blue-500 text-white font-bold py-2 px-4 rounded">
-                    Register
+                <Link href="../login">
+                  <button className="bg-red-500 text-white font-bold py-2 px-4 rounded">
+                    Back
                   </button>
                 </Link>
-                <button
-                  type="submit"
-                  className="bg-green-500 text-white font-bold py-2 px-4 rounded"
-                >
-                  Enviar
+                <button className="bg-green-500 text-white font-bold py-2 px-4 rounded">
+                  Submit
                 </button>
               </div>
             </form>

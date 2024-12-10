@@ -16,7 +16,7 @@ export default function GridElements({ elements }) {
           <p>{element.CIF}</p>
         </div>
       ))}
-      <Link href="../pages/newclient">
+      <Link href="../main/newclient">
         <div
           id="newClientButton"
           key="add-element"

@@ -3,7 +3,7 @@
 import GridElements from "@/app/components/GridElements";
 import Latbar from "@/app/components/Latbar";
 
-import "../../globals.css";
+import "../globals.css";
 
 const clients = [
   { name: "Telefonica", Domicilio: "Alameda de San Anton 9", CIF: 3237213712 },
