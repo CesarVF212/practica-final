@@ -10,12 +10,10 @@ function addClient(name, direction, cif) {
   const url = "https://bildy-rpmaya.koyeb.app/api/client";
   const token = localStorage.getItem("jwt");
 
+  // Verificamos si hay un Token.
   if (!token) {
     console.error(
       "ERROR (NEWCLIENT.addClient()): No se puede autorizar el acceso a la API"
-    );
-    return Promise.reject(
-      new Error("No se encontró un token válido en localStorage.")
     );
   }
 
@@ -31,36 +29,33 @@ function addClient(name, direction, cif) {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Ha ocurrido un error al guardar el cliente.");
-      }
-      return response.json();
-    })
-    .catch((error) => {
-      console.error(
-        "ERROR (NEWCLIENT.addClient()): Error al guardar el cliente",
-        error
+  }).then((response) => {
+    if (!response.ok) {
+      throw new Error(
+        "ERROR (NEWCLIENT.addClient()): ha habido un error al introducir un nuevo cliente"
       );
-      throw error;
-    });
+    }
+    return response.json();
+  });
 }
 
 export default function Newclient() {
   const router = useRouter();
 
   const handleSubmit = (e) => {
+    // Evitamos que se recargue la página.
     e.preventDefault();
     const name = document.getElementById("name-box").value;
     const direction = document.getElementById("adress-box").value;
     const cif = document.getElementById("cif-box").value;
 
+    // Verificamos que el nombre y la dirección no estén vacias.
     if (!name || !direction) {
       alert("ERROR: No se han introducido todos los datos necesarios");
       return;
     }
 
+    // Llamamos a la función de añadir un cliente a la API.
     addClient(name, direction, cif)
       .then(() => {
         alert(`Se ha guardado el cliente ${name}`);

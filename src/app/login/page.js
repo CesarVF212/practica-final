@@ -8,8 +8,9 @@ import "../components/Styles_Forms.css";
 
 import LogoBig from "../components/LogoBig";
 
-function LoginPostRequest(email, password) {
+function loginPostRequest(email, password) {
   const url = "https://bildy-rpmaya.koyeb.app/api/user/login";
+
   const data = {
     email: email,
     password: password,
@@ -24,12 +25,16 @@ function LoginPostRequest(email, password) {
   })
     .then((response) => {
       if (!response.ok) {
-        throw new Error("El correo o la contraseña no son correctos");
+        throw new Error(
+          "ERROR (LOGIN.loginPostRequest): se recibió una respuesta negativa del servidor."
+        );
       }
       return response.json();
     })
     .then((result) => {
       console.log(result);
+
+      // Guardamos el token en el LocalStorage para poder hacer las consulas con el.
       const token = result.token;
       localStorage.setItem("jwt", token);
       return true;
@@ -41,6 +46,7 @@ function LoginPostRequest(email, password) {
 }
 
 export default function Login() {
+  // Declaramos un Router para poder movernos entre las páginas.
   const router = useRouter();
 
   return (
@@ -60,10 +66,13 @@ export default function Login() {
               action="login-form"
               onSubmit={(e) => {
                 e.preventDefault();
+
+                // Obtenemos los datos desde el documento HTML.
                 const email = document.getElementById("email-box").value;
                 const password = document.getElementById("password-box").value;
 
-                LoginPostRequest(email, password).then((success) => {
+                // En el caso de que se haya hecho un login correcto, pasamos a la página principal.
+                loginPostRequest(email, password).then((success) => {
                   if (success) {
                     router.push("/main");
                   } else {
