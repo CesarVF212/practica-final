@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import "../../globals.css";
 import "../../components/Styles_Forms.css";
 
-function addClient(name, direction, cif) {
+function addClient(name, address, cif) {
   const url = "https://bildy-rpmaya.koyeb.app/api/client";
   const token = localStorage.getItem("jwt");
 
@@ -19,7 +19,7 @@ function addClient(name, direction, cif) {
 
   const data = {
     name: name,
-    direction: direction,
+    address: { street: address },
     cif: cif,
   };
 
@@ -29,6 +29,7 @@ function addClient(name, direction, cif) {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
+    body: JSON.stringify(data),
   }).then((response) => {
     if (!response.ok) {
       throw new Error(
@@ -46,17 +47,17 @@ export default function Newclient() {
     // Evitamos que se recargue la página.
     e.preventDefault();
     const name = document.getElementById("name-box").value;
-    const direction = document.getElementById("adress-box").value;
+    const address = document.getElementById("address-box").value;
     const cif = document.getElementById("cif-box").value;
 
     // Verificamos que el nombre y la dirección no estén vacias.
-    if (!name || !direction) {
+    if (!name || !address) {
       alert("ERROR: No se han introducido todos los datos necesarios");
       return;
     }
 
     // Llamamos a la función de añadir un cliente a la API.
-    addClient(name, direction, cif)
+    addClient(name, address, cif)
       .then(() => {
         alert(`Se ha guardado el cliente ${name}`);
         // Redirigir a la página principal después de guardar
@@ -77,8 +78,8 @@ export default function Newclient() {
           <input type="text" id="name-box" name="name" />
         </div>
         <div>
-          <label htmlFor="adress-box">Dirección de facturación:</label>
-          <input type="text" id="adress-box" name="address" />
+          <label htmlFor="address-box">Dirección de facturación:</label>
+          <input type="text" id="address-box" name="address" />
         </div>
         <div>
           <label htmlFor="cif-box">CIF:</label>
