@@ -87,8 +87,11 @@ export default function Login() {
                     Register
                   </button>
                 </Link>
-                <button className="bg-green-500 text-white font-bold py-2 px-4 rounded">
-                  Submit
+                <button
+                  type="submit"
+                  className="bg-green-500 text-white font-bold py-2 px-4 rounded"
+                >
+                  Enviar
                 </button>
               </div>
             </form>

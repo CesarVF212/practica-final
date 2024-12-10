@@ -41,3 +41,8 @@ h2 {
   font-weight: 700;
   text-decoration: underline;
 }
+
+h3 {
+  font-size: 2rem;
+  font-weight: 500;
+}

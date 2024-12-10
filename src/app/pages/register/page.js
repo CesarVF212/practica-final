@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
+import "../../globals.css";
 import "../../components/Styles_Forms.css";
 
 import LogoBig from "../../components/LogoBig";
@@ -32,7 +33,7 @@ function RegisterPostRequest(email, password) {
     .then((result) => {
       console.log(result);
       const token = result.token;
-      localStorage.setItem("jwt", token);
+      localStorage.setItem("jwt_register", token);
       return true; // Retorna true si el registro es exitoso
     })
     .catch((error) => {
@@ -66,7 +67,7 @@ export default function Register() {
 
                 RegisterPostRequest(email, password).then((success) => {
                   if (success) {
-                    router.push("/pages/main"); // Redirige al usuario después de un registro exitoso
+                    router.push("/pages/register/verification"); // Redirige al usuario después de un registro exitoso
                   } else {
                     alert("Ha ocurrido un error al registrarse");
                   }

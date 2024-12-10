@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 
-export default function GridElement({ elements }) {
+export default function GridElements({ elements }) {
   return (
     <div className="grid grid-cols-2 gap-4" id="grid">
       {elements.map((element, index) => (

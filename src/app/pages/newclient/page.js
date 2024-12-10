@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 
+import "../../globals.css";
 import "../../components/Styles_Forms.css";
 
 export default function Newclient() {
