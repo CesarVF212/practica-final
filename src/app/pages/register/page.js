@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-import "../../components/LoginRegisterBox.css";
+import "../../components/Styles_Forms.css";
 
 import LogoBig from "../../components/LogoBig";
 
@@ -32,7 +32,7 @@ function RegisterPostRequest(email, password) {
     .then((result) => {
       console.log(result);
       const token = result.token;
-      localStorage.setItem("token", token);
+      localStorage.setItem("jwt", token);
       return true; // Retorna true si el registro es exitoso
     })
     .catch((error) => {

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import "../../globals.css";
-import "../../components/LoginRegisterBox.css";
+import "../../components/Styles_Forms.css";
 
 import LogoBig from "../../components/LogoBig";
 
@@ -31,7 +31,7 @@ function LoginPostRequest(email, password) {
     .then((result) => {
       console.log(result);
       const token = result.token;
-      localStorage.setItem("token", token);
+      localStorage.setItem("jwt", token);
       return true;
     })
     .catch((error) => {
