@@ -97,7 +97,10 @@ export default function Register() {
                     Back
                   </button>
                 </Link>
-                <button className="bg-green-500 text-white font-bold py-2 px-4 rounded">
+                <button
+                  type="submit"
+                  className="bg-green-500 text-white font-bold py-2 px-4 rounded"
+                >
                   Submit
                 </button>
               </div>

@@ -12,8 +12,8 @@ export default function GridElements({ elements }) {
           className="p-4 bg-gray-200 rounded-lg shadow-md hover:bg-gray-300 cursor-pointer"
         >
           <h5 className="text-lg font-semibold">{element.name}</h5>
-          <p>{element.Domicilio}</p>
-          <p>{element.CIF}</p>
+          <p>{element.direction}</p>
+          <p>{element.cif}</p>
         </div>
       ))}
       <Link href="../main/newclient">
