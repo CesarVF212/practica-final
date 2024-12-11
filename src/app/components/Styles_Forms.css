@@ -25,3 +25,14 @@ input {
 input:hover {
   border: 1px solid black;
 }
+
+/* Para la caja de direcciones */
+
+.address-box,
+.address-extra-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  gap: 1vh;
+}
