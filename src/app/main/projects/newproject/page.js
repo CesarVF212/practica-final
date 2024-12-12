@@ -6,6 +6,8 @@ import "@/app/globals.css";
 import "@/app/components/Styles_Forms.css";
 import Link from "next/link";
 
+import { stringify } from "flatted"; // Tenia un problema por referencia ciclica. Investigue y esta es la solución.
+
 import DiscardAcceptButtons from "@/app/components/DiscardAcceptButtons";
 
 function containsNumbers(string) {
@@ -20,7 +22,6 @@ function addproject(
   addressCity,
   addressRegion,
   addressPostalcode,
-  cif,
   client_id
 ) {
   const url = "https://bildy-rpmaya.koyeb.app/api/project";
@@ -38,7 +39,8 @@ function addproject(
 
   const data = {
     name: name,
-    notes: notes,
+    projectCode: "ID-12345",
+    email: "ejemplo@correo.com",
     address: {
       street: addressStreet,
       number: addressNumber,
@@ -46,13 +48,13 @@ function addproject(
       city: addressCity,
       province: addressRegion,
     },
-    cif: cif,
-    createdAt: timeCreated,
-    modifiedAt: timeCreated,
-    client_id: client_id,
+    code: "PRJ-0001",
+    clientId: "6662a8c3c199795c88329e4e",
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    begin: null,
+    end: null,
   };
-
-  print(data);
 
   return fetch(url, {
     method: "POST",
@@ -84,8 +86,8 @@ export default function Newproject() {
     const addressCity = document.getElementById("address-city-box").value;
     const addressRegion = document.getElementById("address-region-box").value;
     const addressPostalcode = document.getElementById("address-code-box").value;
-    const notes = document.getElementById("notes-box");
-    const client = document.getElementById("client-box");
+    const notes = document.getElementById("notes-box").value;
+    const client_id = document.getElementById("client-box").value;
 
     // Tenemos que obtener el id de un cliente. Debemos de poder seleccionarlo de la lista.
 
@@ -97,7 +99,7 @@ export default function Newproject() {
       !addressCity ||
       !addressRegion ||
       !addressPostalcode ||
-      !client
+      !client_id
     ) {
       alert("ERROR: No se han introducido todos los datos necesarios.");
       return;
@@ -135,14 +137,12 @@ export default function Newproject() {
       <form className="w-[80%]" onSubmit={handleSubmit}>
         <br />
         <div>
-          <label htmlFor="name-box">projecte / Empresa:</label>
+          <label htmlFor="name-box">Nombre del Proyecto:</label>
           <input type="text" id="name-box" name="name" />
         </div>
         <div className="address-box">
           <span>
-            <label htmlFor="address-street-box">
-              Dirección de facturación:
-            </label>
+            <label htmlFor="address-street-box">Dirección física:</label>
             <input type="text" id="address-street-box" name="address" />
           </span>
           <span>
@@ -184,7 +184,7 @@ export default function Newproject() {
           <input type="text" id="client-box" name="client" />
         </div>
         <div className="flex flex-row justify-between">
-          <Link href={"main/clients"}>
+          <Link href={"../projects"}>
             <button
               type="button"
               className="bg-red-500 text-white font-bold py-2 px-4 rounded"

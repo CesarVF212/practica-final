@@ -8,7 +8,7 @@ import "@/app/globals.css";
 import "@/app/components/Styles_Grids.css";
 
 function getprojects() {
-  const url = "https://bildy-rpmaya.koyeb.app/api/project`";
+  const url = "https://bildy-rpmaya.koyeb.app/api/project";
   const token = localStorage.getItem("jwt");
 
   if (!token)
@@ -69,7 +69,7 @@ export default function projects() {
             key={index}
             className="grid-item"
             id="grid-item-projects"
-            onClick={openprojectDetails(project)}
+            // onClick={openprojectDetails(project)}
           >
             <Image
               id="documentImage"
@@ -78,6 +78,8 @@ export default function projects() {
               width={200}
               height={200}
             />
+            <h3>{project.name}</h3>
+            <h6>{project.clientId}</h6>
           </div>
         ))}
       </div>

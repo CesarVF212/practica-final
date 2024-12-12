@@ -63,6 +63,8 @@
 }
 
 .grid-item {
+  display: flex;
+  align-items: center;
   padding: 1.2rem;
   background-color: #e0e0e0;
   box-shadow: 5px 5px rgba(0, 0, 0, 0.2);
@@ -92,8 +94,7 @@
 
 /* Estilos del grid de proyectos */
 #documentImage {
-  width: 100%;
-  height: 100%;
+  width: 80%;
 }
 
 #grid-item-projects {
