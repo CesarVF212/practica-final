@@ -2,8 +2,8 @@
 
 import { useRouter } from "next/navigation";
 
-import "../../globals.css";
-import "../../components/Styles_Forms.css";
+import "@/app/globals.css";
+import "@/app/components/Styles_Forms.css";
 import Link from "next/link";
 
 import DiscardAcceptButtons from "@/app/components/DiscardAcceptButtons";
@@ -12,16 +12,18 @@ function containsNumbers(string) {
   return /\d/.test(string);
 }
 
-function addClient(
+function addproject(
   name,
+  notes,
   addressStreet,
   addressNumber,
   addressCity,
   addressRegion,
   addressPostalcode,
-  cif
+  cif,
+  client_id
 ) {
-  const url = "https://bildy-rpmaya.koyeb.app/api/client";
+  const url = "https://bildy-rpmaya.koyeb.app/api/project";
   const token = localStorage.getItem("jwt");
 
   const date = new Date();
@@ -30,12 +32,13 @@ function addClient(
   // Verificamos si hay un Token.
   if (!token) {
     console.error(
-      "ERROR (NEWCLIENT.addClient()): No se puede autorizar el acceso a la API"
+      "ERROR (NEWPROJECT.addproject()): No se puede autorizar el acceso a la API"
     );
   }
 
   const data = {
     name: name,
+    notes: notes,
     address: {
       street: addressStreet,
       number: addressNumber,
@@ -45,6 +48,8 @@ function addClient(
     },
     cif: cif,
     createdAt: timeCreated,
+    modifiedAt: timeCreated,
+    client_id: client_id,
   };
 
   print(data);
@@ -59,14 +64,14 @@ function addClient(
   }).then((response) => {
     if (!response.ok) {
       throw new Error(
-        "ERROR (NEWCLIENT.addClient()): ha habido un error al introducir un nuevo cliente."
+        "ERROR (NEWproject.addproject()): ha habido un error al introducir un nuevo projecte."
       );
     }
     return response.json();
   });
 }
 
-export default function Newclient() {
+export default function Newproject() {
   const router = useRouter();
   const accept_link = "../main";
 
@@ -79,7 +84,10 @@ export default function Newclient() {
     const addressCity = document.getElementById("address-city-box").value;
     const addressRegion = document.getElementById("address-region-box").value;
     const addressPostalcode = document.getElementById("address-code-box").value;
-    const cif = document.getElementById("cif-box").value;
+    const notes = document.getElementById("notes-box");
+    const client = document.getElementById("client-box");
+
+    // Tenemos que obtener el id de un cliente. Debemos de poder seleccionarlo de la lista.
 
     // Verificamos que el nombre y la dirección no estén vacias.
     if (
@@ -88,7 +96,8 @@ export default function Newclient() {
       !addressNumber ||
       !addressCity ||
       !addressRegion ||
-      !addressPostalcode
+      !addressPostalcode ||
+      !client
     ) {
       alert("ERROR: No se han introducido todos los datos necesarios.");
       return;
@@ -99,33 +108,34 @@ export default function Newclient() {
       return;
     }
 
-    // Llamamos a la función de añadir un cliente a la API.
-    addClient(
+    // Llamamos a la función de añadir un projecte a la API.
+    addproject(
       name,
+      notes,
       addressStreet,
       addressNumber,
       addressCity,
       addressRegion,
       addressPostalcode,
-      cif
+      client_id
     )
       .then(() => {
-        alert(`Se ha guardado el cliente ${name}`);
+        alert(`Se ha guardado el projecto ${name}`);
         // Redirigir a la página principal después de guardar
-        router.push("../main");
+        router.push("../projects");
       })
       .catch((error) => {
-        alert("ERROR: No se pudo guardar el cliente. Revisa la consola.");
+        alert("ERROR: No se pudo guardar el proyecto. Revisa la consola.");
       });
   };
 
   return (
     <div className="form-box w-[35vw] h-[44vh]">
-      <h2>NUEVO CLIENTE</h2>
+      <h2>NUEVO PROYECTO</h2>
       <form className="w-[80%]" onSubmit={handleSubmit}>
         <br />
         <div>
-          <label htmlFor="name-box">Cliente / Empresa:</label>
+          <label htmlFor="name-box">projecte / Empresa:</label>
           <input type="text" id="name-box" name="name" />
         </div>
         <div className="address-box">
@@ -166,17 +176,15 @@ export default function Newclient() {
           </span>
         </div>
         <div>
-          <label htmlFor="cif-box">CIF:</label>
-          <input
-            type="number"
-            min="10000000"
-            max="99999999"
-            id="cif-box"
-            name="cif"
-          />
+          <label htmlFor="notes-box">Notas del proyecto:</label>
+          <input type="text" id="notes-box" name="notes" />
+        </div>
+        <div>
+          <label htmlFor="client-box">Cliente:</label>
+          <input type="text" id="client-box" name="client" />
         </div>
         <div className="flex flex-row justify-between">
-          <Link href={"../main"}>
+          <Link href={"main/clients"}>
             <button
               type="button"
               className="bg-red-500 text-white font-bold py-2 px-4 rounded"

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-
+import Link from "next/link";
 export default function MainLayout({ children }) {
   return (
     <div className="flex">
@@ -16,15 +16,16 @@ export default function MainLayout({ children }) {
             className="mx-auto"
           />
         </div>
-        <h4 className="text-lg font-bold mb-4 cursor-pointer hover:text-gray-400">
-          Resumen
-        </h4>
-        <h4 className="text-lg font-bold mb-4 cursor-pointer hover:text-gray-400">
-          Clientes
-        </h4>
-        <h4 className="text-lg font-bold mb-4 cursor-pointer hover:text-gray-400">
-          Proyectos
-        </h4>
+        <Link href="main/clients">
+          <h4 className="text-lg font-bold mb-4 cursor-pointer hover:text-gray-400">
+            Clientes
+          </h4>
+        </Link>
+        <Link href="main/projects">
+          <h4 className="text-lg font-bold mb-4 cursor-pointer hover:text-gray-400">
+            Proyectos
+          </h4>
+        </Link>
         <h4 className="text-lg font-bold mb-4 cursor-pointer hover:text-gray-400">
           Albaranes
         </h4>

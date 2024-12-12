@@ -1,6 +1,6 @@
 "use client";
 
-import "../../globals.css";
+import "@/app/globals.css";
 import { useRouter } from "next/navigation";
 
 function checkValidation(code) {
@@ -45,7 +45,7 @@ export default function Verification() {
 
     checkValidation(code).then((success) => {
       if (success) {
-        router.push("../../main");
+        router.push("../../main/clients");
       } else {
         alert("Ha ocurrido un error al registrarse");
       }

@@ -74,7 +74,7 @@ export default function Login() {
                 // En el caso de que se haya hecho un login correcto, pasamos a la página principal.
                 loginPostRequest(email, password).then((success) => {
                   if (success) {
-                    router.push("/main");
+                    router.push("/main/clients");
                   } else {
                     alert("El correo o la contraseña no son correctos");
                   }

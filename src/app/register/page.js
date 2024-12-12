@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-import "../globals.css";
+import "@/app/globals.css";
 import "../components/Styles_Forms.css";
 
 import LogoBig from "../components/LogoBig";

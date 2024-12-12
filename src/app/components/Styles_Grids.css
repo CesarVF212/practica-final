@@ -9,7 +9,27 @@
   width: 100%;
 }
 
-.new-client-button {
+@media (max-width: 1500px) {
+  /* Para pantallas medianas (tabletas) */
+  .grid-container {
+    grid-template-columns: repeat(3, 1fr); /* 2 columnas */
+  }
+}
+
+@media (max-width: 768px) {
+  /* Para pantallas medianas (tabletas) */
+  .grid-container {
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas */
+  }
+}
+
+@media (max-width: 480px) {
+  .grid-container {
+    grid-template-columns: 1fr; /* 1 columna */
+  }
+}
+
+.add-button {
   padding: 1.2rem;
   background-color: rgb(199, 128, 145);
   box-shadow: 5px 5px rgba(0, 0, 0, 0.2);
@@ -20,23 +40,23 @@
   align-items: center;
 }
 
-.new-client-button:hover {
+.add-button:hover {
   background-color: #292b3a;
   cursor: pointer;
 }
 
-.new-client-content {
+.add-content {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.new-client-button img {
+.add-button img {
   width: 65px;
   height: 65px;
 }
 
-.new-client-text {
+.add-text {
   font-size: 0.875rem;
   font-weight: 500;
   margin-top: 0.5rem;
@@ -68,4 +88,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+/* Estilos del grid de proyectos */
+#documentImage {
+  width: 100%;
+  height: 100%;
+}
+
+#grid-item-projects {
+  background-color: #e0e0e000;
+  box-shadow: 0px 0px rgba(0, 0, 0, 0.2);
 }
