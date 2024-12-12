@@ -26,9 +26,11 @@ export default function MainLayout({ children }) {
             Proyectos
           </h4>
         </Link>
-        <h4 className="text-lg font-bold mb-4 cursor-pointer hover:text-gray-400">
-          Albaranes
-        </h4>
+        <Link href="notes">
+          <h4 className="text-lg font-bold mb-4 cursor-pointer hover:text-gray-400">
+            Notas
+          </h4>
+        </Link>
         <h4 className="text-lg font-bold mb-4 cursor-pointer hover:text-gray-400">
           Proveedores
         </h4>

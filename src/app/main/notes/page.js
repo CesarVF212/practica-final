@@ -1,18 +1,19 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import "@/app/components/Styles_Forms.css";
 import Link from "next/link";
 import Image from "next/image";
 
 import "@/app/globals.css";
 import "@/app/components/Styles_Grids.css";
 
-function getprojects() {
-  const url = "https://bildy-rpmaya.koyeb.app/api/project";
+function getnotes() {
+  const url = "https://bildy-rpmaya.koyeb.app/api/deliverynote";
   const token = localStorage.getItem("jwt");
 
   if (!token)
-    throw new Error("ERROR (MAIN.getprojects()): no se encuentra el Token.");
+    throw new Error("ERROR (MAIN.getnotes()): no se encuentra el Token.");
 
   return fetch(url, {
     method: "GET",
@@ -22,19 +23,19 @@ function getprojects() {
     },
   }).then((response) => {
     if (!response.ok) {
-      throw new Error("ERROR (MAIN): error al obtener los projectos.");
+      throw new Error("ERROR (MAIN): error al obtener los notes:");
     }
     return response.json();
   });
 }
 
-export default function projects() {
-  // Usamos un effect para poder abstaernos de revisar cada vez que se añada un nuevo projecto.
-  const [projects, setprojects] = useState([]);
+export default function Notes() {
+  // Usamos un effect para poder abstaernos de revisar cada vez que se añada un nuevo notee.s
+  const [notes, setnotes] = useState([]);
 
   useEffect(() => {
-    getprojects().then((data) => {
-      setprojects(data);
+    getnotes().then((data) => {
+      setnotes(data); // Actualiza el estado con los datos obtenidos
     });
   }, []);
 
@@ -42,7 +43,7 @@ export default function projects() {
     <div className="general-container">
       <div className="grid-container">
         <div className="add-button">
-          <Link href="projects/newproject">
+          <Link href="notes/newnote">
             <div id="addButton" className="add-content">
               <Image
                 id="plusImage"
@@ -51,26 +52,26 @@ export default function projects() {
                 width={200}
                 height={200}
               />
-              <span className="add-text">Añadir un projecto</span>
+              <span className="add-text">Añadir una nota</span>
             </div>
           </Link>
         </div>
-        {projects.map((project, index) => (
+        {notes.map((note, index) => (
           <div
             key={index}
             className="grid-item"
-            id="grid-item-projects"
-            // onClick={openprojectDetails(project)}
+            id="grid-item-notes"
+            // onClick={openNoteDetails(note)}
           >
             <Image
-              id="documentImage"
-              src="/document.png"
+              id="paperImage"
+              src="/paperImage.png"
               alt=""
               width={200}
               height={200}
             />
-            <h3>{project.name}</h3>
-            <h6>{project.clientId}</h6>
+            <h3>{note.material}</h3>
+            <h6>{note.description}</h6>
           </div>
         ))}
       </div>

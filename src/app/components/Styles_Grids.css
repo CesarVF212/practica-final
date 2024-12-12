@@ -93,6 +93,7 @@
 }
 
 /* Estilos del grid de proyectos */
+
 #documentImage {
   width: 80%;
 }
@@ -100,4 +101,25 @@
 #grid-item-projects {
   background-color: #e0e0e000;
   box-shadow: 0px 0px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos del grid de albaranes */
+#paperImage {
+  width: 60%;
+}
+
+#grid-item-notes {
+  display: flex;
+  max-width: 8vw;
+  padding: 0rem;
+  background-color: #e0e0e000;
+  box-shadow: 0px 0px rgba(0, 0, 0, 0.2);
+  justify-content: center;
+  align-items: center;
+}
+
+#grid-item-notes h3,
+#grid-item-notes h6 {
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
 }
