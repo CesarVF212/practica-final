@@ -45,7 +45,7 @@ function addClient(
     },
     cif: cif,
     createdAt: timeCreated,
-    modifiedAt: timeCreated,
+    updatedAt: timeCreated,
   };
 
   print(data);

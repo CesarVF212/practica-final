@@ -3,6 +3,13 @@
 import React from "react";
 import { useSearchParams } from "next/navigation";
 import ProjectGrid from "@/app/components/grids/ProjectsGrid";
+import Image from "next/image";
+
+// Funciones importadas.
+import dateFormater from "@/app/functions/dateFormater";
+
+// CSS
+import "@/app/globals.css";
 
 function getClientProjects(client) {
   const url = `https://bildy-rpmaya.koyeb.app/api/project/${client._id}`;
@@ -46,11 +53,18 @@ export default function ClientDetails() {
     <div>
       <div className="flex flex-row" id="general-box">
         <div id="photo-box"></div>
-
+        <Image
+          id="logo"
+          src="/logo.png"
+          alt="Document"
+          width={200}
+          height={200}
+          className="mr-10"
+        />
         <div id="info-box" className="flex flex-col">
-          <h3>
+          <h4>
             Nombre: <b>{client.name}</b>
-          </h3>
+          </h4>
           <br></br>
           <h5>
             Dirección: {client.address.street} {client.address.number}.
@@ -63,10 +77,8 @@ export default function ClientDetails() {
           <br></br>
           <h4>CIF: {client.cif}</h4>
           <br></br>
-          <h5>
-            Creado: {client.createdAt.toString()}. Modificado:{" "}
-            {client.modifiedAt}
-          </h5>
+          <h5>Creado: {dateFormater(client.createdAt)}.</h5>
+          <h5>Modificado: {dateFormater(client.updatedAt)}.</h5>
           <div>
             <h3>PROYECTOS:</h3>
             <ProjectGrid projects={getClientProjects(client)} />
