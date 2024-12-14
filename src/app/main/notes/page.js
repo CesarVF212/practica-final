@@ -30,7 +30,7 @@ function getnotes() {
 }
 
 export default function Notes() {
-  // Usamos un effect para poder abstaernos de revisar cada vez que se añada un nuevo notee.s
+  // Usamos un effect para poder abstaernos de revisar cada vez que se añada un nuevo note.
   const [notes, setnotes] = useState([]);
 
   useEffect(() => {
@@ -52,7 +52,7 @@ export default function Notes() {
                 width={200}
                 height={200}
               />
-              <span className="add-text">Añadir una nota</span>
+              <span className="add-text">Añadir un alabrán</span>
             </div>
           </Link>
         </div>

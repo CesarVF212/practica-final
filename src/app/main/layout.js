@@ -28,7 +28,7 @@ export default function MainLayout({ children }) {
         </Link>
         <Link href="notes">
           <h4 className="text-lg font-bold mb-4 cursor-pointer hover:text-gray-400">
-            Notas
+            Albaranes
           </h4>
         </Link>
         <h4 className="text-lg font-bold mb-4 cursor-pointer hover:text-gray-400">

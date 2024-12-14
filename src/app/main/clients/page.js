@@ -2,18 +2,11 @@
 
 import React, { useState, useEffect } from "react";
 import "@/app/components/Styles_Forms.css";
-import Link from "next/link";
-import Image from "next/image";
-
 import "@/app/globals.css";
 import "@/app/components/Styles_Grids.css";
-
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 import selectProfileIcon from "@/app/functions/selectProfileIcon";
-
-function openClientDetails(client) {
-  const id = client._id;
-  const urlName = client.name;
-}
 
 function getClients() {
   const url = "https://bildy-rpmaya.koyeb.app/api/client";
@@ -37,37 +30,32 @@ function getClients() {
 }
 
 export default function Main() {
-  // Usamos un effect para poder abstaernos de revisar cada vez que se añada un nuevo cliente.s
   const [clients, setClients] = useState([]);
+  const router = useRouter();
 
   useEffect(() => {
     getClients().then((data) => {
-      setClients(data); // Actualiza el estado con los datos obtenidos
+      setClients(data);
     });
   }, []);
+
+  const openClientDetails = (client) => {
+    const query = new URLSearchParams({
+      variable: JSON.stringify(client),
+    }).toString();
+    const url = `/main/clients/${client._id}?${query}`;
+    console.log("URL generada:", url); // Revisa el formato aquí
+    router.push(url);
+  };
 
   return (
     <div className="general-container">
       <div className="grid-container">
-        <div className="add-button">
-          <Link href="./clients/newclient">
-            <div id="addButton" className="add-content">
-              <Image
-                id="plusImage"
-                src="/plus.png"
-                alt=""
-                width={65}
-                height={65}
-              />
-              <span className="add-text">Añadir un cliente</span>
-            </div>
-          </Link>
-        </div>
-        {clients.map((client, index) => (
+        {clients.map((client) => (
           <div
-            key={index}
+            key={client._id}
             className="grid-item"
-            onClick={openClientDetails(client)}
+            onClick={() => openClientDetails(client)}
           >
             <h5 className="client-name">
               Cliente: <b>{client.name}</b>
@@ -77,7 +65,6 @@ export default function Main() {
             </p>
             <p>Ciudad: {client.address.city}</p>
             <p>CIF: {client.cif}</p>
-            <br />
             <div className="image-container">
               <Image
                 src={selectProfileIcon(client.logo)}

@@ -4,6 +4,9 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
+// Componentes React.
+import ProjectGrid from "@/app/components/grids/ProjectsGrid";
+
 import "@/app/globals.css";
 import "@/app/components/Styles_Grids.css";
 
@@ -55,24 +58,7 @@ export default function projects() {
             </div>
           </Link>
         </div>
-        {projects.map((project, index) => (
-          <div
-            key={index}
-            className="grid-item"
-            id="grid-item-projects"
-            // onClick={openprojectDetails(project)}
-          >
-            <Image
-              id="documentImage"
-              src="/document.png"
-              alt=""
-              width={200}
-              height={200}
-            />
-            <h3>{project.name}</h3>
-            <h6>{project.clientId}</h6>
-          </div>
-        ))}
+        <ProjectGrid projects={projects}></ProjectGrid>
       </div>
     </div>
   );
