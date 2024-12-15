@@ -3,23 +3,23 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-
-// Componentes React.
 import ProjectGrid from "@/app/components/grids/ProjectsGrid";
 
 import "@/app/globals.css";
 import "@/app/components/Styles_Grids.css";
 
-// FUNCIONES
 import getProjects from "@/app/functions/fetch/getProjects";
 
-export default function projects() {
-  // Usamos un effect para poder abstaernos de revisar cada vez que se añada un nuevo projecto.
-  const [projects, setprojects] = useState([]);
+export default function Projects() {
+  const [projects, setProjects] = useState([]);
 
   useEffect(() => {
     getProjects().then((data) => {
-      setprojects(data);
+      if (Array.isArray(data)) {
+        setProjects(data);
+      } else {
+        console.error("Los datos obtenidos no son un array:", data);
+      }
     });
   }, []);
 
@@ -27,7 +27,7 @@ export default function projects() {
     <div className="general-container">
       <div className="grid-container">
         <div className="add-button">
-          <Link href="projects/newproject">
+          <Link href="/projects/newproject">
             <div id="addButton" className="add-content">
               <Image
                 id="plusImage"
@@ -40,7 +40,7 @@ export default function projects() {
             </div>
           </Link>
         </div>
-        <ProjectGrid projects={projects}></ProjectGrid>
+        <ProjectGrid projects={projects} />
       </div>
     </div>
   );

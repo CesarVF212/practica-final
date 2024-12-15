@@ -1,9 +1,9 @@
 "use client";
 
 // Librerias
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import ProjectGrid from "@/app/components/grids/ProjectsGrid";
+import ProjectsGrid from "@/app/components/grids/ProjectsGrid";
 import Image from "next/image";
 
 // Funciones importadas.
@@ -18,6 +18,18 @@ export default function ClientDetails() {
 
   const variable = searchParams.get("variable"); // La variable pasada como query
   const client = variable ? JSON.parse(variable) : null; // Parsear el cliente si existe
+
+  const [projects, setProjects] = useState([]);
+
+  useEffect(() => {
+    getClientProjects(client._id).then((data) => {
+      if (Array.isArray(data)) {
+        setProjects(data);
+      } else {
+        console.error("Los datos obtenidos no son un array:", data);
+      }
+    });
+  }, []);
 
   if (!client) {
     return (
@@ -60,7 +72,7 @@ export default function ClientDetails() {
           <h5>Modificado: {dateFormater(client.updatedAt)}.</h5>
           <div>
             <h3>PROYECTOS:</h3>
-            <ProjectGrid projects={getClientProjects(client._id)} />
+            <ProjectsGrid projects={projects} />
           </div>
         </div>
       </div>
