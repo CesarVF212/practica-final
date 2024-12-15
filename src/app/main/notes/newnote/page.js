@@ -1,65 +1,43 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import Link from "next/link";
 
 import "@/app/globals.css";
 import "@/app/components/Styles_Forms.css";
-import Link from "next/link";
 
 import { stringify } from "flatted"; // Tenia un problema por referencia ciclica. Investigue y esta es la solución.
 
 import DiscardAcceptButtons from "@/app/components/DiscardAcceptButtons";
 
-function addNote(clientId, projectId, material, hours, description, workdate) {
-  const url = "https://bildy-rpmaya.koyeb.app/api/deliverynote";
-  const token = localStorage.getItem("jwt");
-
-  // Verificamos si hay un Token.
-  if (!token) {
-    console.error(
-      "ERROR (NEWnote.addnote()): No se puede autorizar el acceso a la API"
-    );
-  }
-
-  let data = {
-    clientId: clientId,
-    projectId: projectId,
-    format: "material",
-    material: material,
-    hours: parseInt(hours, 10),
-    description: description,
-    workdate: "1/2/2024",
-  };
-
-  data = {
-    clientId: "671ea30c01da0c4157964045", // Un ID de cliente de ejemplo
-    projectId: "671ea31e01da0c4157964049", // Un ID de proyecto de ejemplo
-    format: "material",
-    material: material,
-    hours: parseInt(hours, 10),
-    description: description,
-    workdate: workdate,
-  };
-
-  return fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(data),
-  }).then((response) => {
-    if (!response.ok) {
-      throw new Error(
-        "ERROR (NEWnote.addnote()): ha habido un error al introducir un nuevo note."
-      );
-    }
-    return response.json();
-  });
-}
+// FUNCIONES.
+import addNote from "@/app/functions/fetch/addNote";
+import getClients from "@/app/functions/fetch/getClients";
+import getProjects from "@/app/functions/fetch/getProjects";
 
 export default function Newnote() {
   const router = useRouter();
+
+  const [clients, setClients] = useState([]);
+  const [projects, setProjects] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const [fetchedClients, fetchedProjects] = await Promise.all([
+          getClients(),
+          getProjects(),
+        ]);
+        setClients(fetchedClients);
+        setProjects(fetchedProjects);
+      } catch (error) {
+        console.error("Error al cargar datos:", error);
+      }
+    }
+
+    fetchData();
+  }, []);
 
   const handleSubmit = (e) => {
     // Evitamos que se recargue la página.
@@ -116,15 +94,30 @@ export default function Newnote() {
           <input type="date" id="date-box" name="date" />
         </div>
         <div className="link-box">
-          <span>
-            <label htmlFor="client-box">Cliente:</label>
-            <input type="client" id="client-box" name="client" />
-          </span>
-          <span>
-            <label htmlFor="project-box">Projecto:</label>
-            <input type="project" id="project-box" name="date" />
-          </span>
+          <div>
+            <label htmlFor="client-box">Cliente: </label>
+            <select id="client-box" name="client">
+              <option value="">Seleccione un cliente</option>
+              {clients.map((client) => (
+                <option key={client._id} value={client._id}>
+                  {client.name} - {client.cif}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label htmlFor="project-box">Proyecto: </label>
+            <select id="project-box" name="project">
+              <option value="">Seleccione un proyecto:</option>
+              {projects.map((project) => (
+                <option key={project._id} value={project._id}>
+                  {project.name} - {project.projectCode}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
+        <br></br>
         <div className="flex flex-row justify-between">
           <Link href={"../notes"}>
             <button

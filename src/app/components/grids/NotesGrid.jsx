@@ -1,18 +1,18 @@
 import Image from "next/image";
 
-export default function ProjectGrid({ projects }) {
-  // Aseguramos que `projects` siempre sea un array
+export default function NotesGrid({ notes }) {
+  // Aseguramos que `notes` siempre sea un array
 
-  console.log(projects);
-  const validProjects = Array.isArray(projects) ? projects : [];
+  console.log(notes);
+  const validnotes = Array.isArray(notes) ? notes : [];
 
   return (
     <div>
-      {validProjects.map((project, index) => (
+      {validnotes.map((note, index) => (
         <div
           key={index}
           className="grid-item"
-          id="grid-item-projects"
+          id="grid-item-notes"
           // onClick={() => openProjectDetails(project)}
         >
           <Image
@@ -22,8 +22,8 @@ export default function ProjectGrid({ projects }) {
             width={200}
             height={200}
           />
-          <h3>{project.name}</h3>
-          <h6>{project.clientId}</h6>
+          <h3>{note.name}</h3>
+          <h6>{note.clientId}</h6>
         </div>
       ))}
     </div>

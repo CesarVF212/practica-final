@@ -16,17 +16,17 @@ export default function MainLayout({ children }) {
             className="mx-auto"
           />
         </div>
-        <Link href="clients">
+        <Link href="/main/clients">
           <h4 className="text-lg font-bold mb-4 cursor-pointer hover:text-gray-400">
             Clientes
           </h4>
         </Link>
-        <Link href="projects">
+        <Link href="/main/projects">
           <h4 className="text-lg font-bold mb-4 cursor-pointer hover:text-gray-400">
             Proyectos
           </h4>
         </Link>
-        <Link href="notes">
+        <Link href="/main/notes">
           <h4 className="text-lg font-bold mb-4 cursor-pointer hover:text-gray-400">
             Albaranes
           </h4>

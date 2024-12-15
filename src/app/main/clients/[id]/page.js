@@ -1,5 +1,6 @@
 "use client";
 
+// Librerias
 import React from "react";
 import { useSearchParams } from "next/navigation";
 import ProjectGrid from "@/app/components/grids/ProjectsGrid";
@@ -7,32 +8,10 @@ import Image from "next/image";
 
 // Funciones importadas.
 import dateFormater from "@/app/functions/dateFormater";
+import getClientProjects from "@/app/functions/fetch/getClientProjects";
 
 // CSS
 import "@/app/globals.css";
-
-function getClientProjects(client) {
-  const url = `https://bildy-rpmaya.koyeb.app/api/project/${client._id}`;
-  const token = localStorage.getItem("jwt");
-
-  if (!token) {
-    console.error("ERROR: No se encuentra el token.");
-    return Promise.resolve([]); // Devuelve un array vacío si no hay token
-  }
-
-  return fetch(url, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  }).then((response) => {
-    if (!response.ok) {
-      throw new Error("ERROR (MAIN): error al obtener los clientes:");
-    }
-    return response.json();
-  });
-}
 
 export default function ClientDetails() {
   const searchParams = useSearchParams(); // Obtener los parámetros de consulta
@@ -81,7 +60,7 @@ export default function ClientDetails() {
           <h5>Modificado: {dateFormater(client.updatedAt)}.</h5>
           <div>
             <h3>PROYECTOS:</h3>
-            <ProjectGrid projects={getClientProjects(client)} />
+            <ProjectGrid projects={getClientProjects(client._id)} />
           </div>
         </div>
       </div>

@@ -1,85 +1,38 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-
+import { useEffect, useState } from "react";
 import "@/app/globals.css";
 import "@/app/components/Styles_Forms.css";
 import Link from "next/link";
 
-import { stringify } from "flatted"; // Tenia un problema por referencia ciclica. Investigue y esta es la solución.
-
-import DiscardAcceptButtons from "@/app/components/DiscardAcceptButtons";
-
-function containsNumbers(string) {
-  return /\d/.test(string);
-}
-
-function addproject(
-  name,
-  notes,
-  addressStreet,
-  addressNumber,
-  addressCity,
-  addressRegion,
-  addressPostalcode,
-  client_id
-) {
-  const url = "https://bildy-rpmaya.koyeb.app/api/project";
-  const token = localStorage.getItem("jwt");
-
-  const date = new Date();
-  const timeCreated = date.getTime();
-
-  // Verificamos si hay un Token.
-  if (!token) {
-    console.error(
-      "ERROR (NEWPROJECT.addproject()): No se puede autorizar el acceso a la API"
-    );
-  }
-
-  const data = {
-    name: name,
-    projectCode: "ID-12345",
-    email: "ejemplo@correo.com",
-    address: {
-      street: addressStreet,
-      number: addressNumber,
-      postal: addressPostalcode,
-      city: addressCity,
-      province: addressRegion,
-    },
-    code: "PRJ-0001",
-    clientId: "6662a8c3c199795c88329e4e",
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-    begin: null,
-    end: null,
-  };
-
-  return fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(data),
-  }).then((response) => {
-    if (!response.ok) {
-      throw new Error(
-        "ERROR (NEWproject.addproject()): ha habido un error al introducir un nuevo projecte."
-      );
-    }
-    return response.json();
-  });
-}
+// FUNCIONES
+import containsNumbers from "@/app/functions/containsNumbers";
+import addProject from "@/app/functions/fetch/addProject";
+import getClients from "@/app/functions/fetch/getClients";
 
 export default function Newproject() {
   const router = useRouter();
-  const accept_link = "../main";
+
+  const [clients, setClients] = useState([]);
+
+  useEffect(() => {
+    // Cargar clientes al montar el componente
+    async function fetchClients() {
+      try {
+        const fetchedClients = await getClients();
+        setClients(fetchedClients);
+      } catch (error) {
+        console.error("Error al cargar clientes:", error);
+      }
+    }
+    fetchClients();
+  }, []);
 
   const handleSubmit = (e) => {
-    // Evitamos que se recargue la página.
+    // Evitamos que se recargue la página
     e.preventDefault();
+
     const name = document.getElementById("name-box").value;
     const addressStreet = document.getElementById("address-street-box").value;
     const addressNumber = document.getElementById("address-number-box").value;
@@ -89,9 +42,7 @@ export default function Newproject() {
     const notes = document.getElementById("notes-box").value;
     const client_id = document.getElementById("client-box").value;
 
-    // Tenemos que obtener el id de un cliente. Debemos de poder seleccionarlo de la lista.
-
-    // Verificamos que el nombre y la dirección no estén vacias.
+    // Verificamos que todos los campos estén llenos
     if (
       !name ||
       !addressStreet ||
@@ -105,13 +56,14 @@ export default function Newproject() {
       return;
     }
 
+    // Validamos que la dirección no contenga números
     if (containsNumbers(addressStreet)) {
-      alert("ERROR: Se han introducido valores númericos en la dirección.");
+      alert("ERROR: Se han introducido valores numéricos en la dirección.");
       return;
     }
 
-    // Llamamos a la función de añadir un projecte a la API.
-    addproject(
+    // Llamamos a la función para añadir el proyecto
+    addProject(
       name,
       notes,
       addressStreet,
@@ -122,12 +74,26 @@ export default function Newproject() {
       client_id
     )
       .then(() => {
-        alert(`Se ha guardado el projecto ${name}`);
+        alert(`Se ha guardado el proyecto ${name}`);
         // Redirigir a la página principal después de guardar
         router.push("../projects");
       })
       .catch((error) => {
         alert("ERROR: No se pudo guardar el proyecto. Revisa la consola.");
+        console.error("Error al guardar el proyecto:", error);
+        if (error.response) {
+          // Si el error tiene respuesta (por ejemplo, un error HTTP)
+          console.error("Detalles del error:", error.response);
+        } else if (error.request) {
+          // Si la solicitud fue realizada pero no hubo respuesta
+          console.error(
+            "La solicitud fue realizada pero no se recibió respuesta:",
+            error.request
+          );
+        } else {
+          // Otros tipos de errores
+          console.error("Error desconocido:", error.message);
+        }
       });
   };
 
@@ -171,7 +137,7 @@ export default function Newproject() {
             />
           </span>
           <span>
-            <label htmlFor="address-region-box">Région:</label>
+            <label htmlFor="address-region-box">Región:</label>
             <input type="text" id="address-region-box" name="address-region" />
           </span>
         </div>
@@ -180,8 +146,15 @@ export default function Newproject() {
           <input type="text" id="notes-box" name="notes" />
         </div>
         <div>
-          <label htmlFor="client-box">Cliente:</label>
-          <input type="text" id="client-box" name="client" />
+          <label htmlFor="client-box">Cliente: </label>
+          <select id="client-box" name="client">
+            <option value="">Seleccione un cliente</option>
+            {clients.map((client) => (
+              <option key={client._id} value={client._id}>
+                {client.name} - {client.cif}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="flex flex-row justify-between">
           <Link href={"../projects"}>

@@ -8,33 +8,15 @@ import Image from "next/image";
 import "@/app/globals.css";
 import "@/app/components/Styles_Grids.css";
 
-function getnotes() {
-  const url = "https://bildy-rpmaya.koyeb.app/api/deliverynote";
-  const token = localStorage.getItem("jwt");
-
-  if (!token)
-    throw new Error("ERROR (MAIN.getnotes()): no se encuentra el Token.");
-
-  return fetch(url, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  }).then((response) => {
-    if (!response.ok) {
-      throw new Error("ERROR (MAIN): error al obtener los notes:");
-    }
-    return response.json();
-  });
-}
+// Importacion de funciones.
+import getNotes from "@/app/functions/fetch/getNotes";
 
 export default function Notes() {
   // Usamos un effect para poder abstaernos de revisar cada vez que se añada un nuevo note.
   const [notes, setnotes] = useState([]);
 
   useEffect(() => {
-    getnotes().then((data) => {
+    getNotes().then((data) => {
       setnotes(data); // Actualiza el estado con los datos obtenidos
     });
   }, []);

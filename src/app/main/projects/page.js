@@ -10,33 +10,15 @@ import ProjectGrid from "@/app/components/grids/ProjectsGrid";
 import "@/app/globals.css";
 import "@/app/components/Styles_Grids.css";
 
-function getprojects() {
-  const url = "https://bildy-rpmaya.koyeb.app/api/project";
-  const token = localStorage.getItem("jwt");
-
-  if (!token)
-    throw new Error("ERROR (MAIN.getprojects()): no se encuentra el Token.");
-
-  return fetch(url, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  }).then((response) => {
-    if (!response.ok) {
-      throw new Error("ERROR (MAIN): error al obtener los projectos.");
-    }
-    return response.json();
-  });
-}
+// FUNCIONES
+import getProjects from "@/app/functions/fetch/getProjects";
 
 export default function projects() {
   // Usamos un effect para poder abstaernos de revisar cada vez que se añada un nuevo projecto.
   const [projects, setprojects] = useState([]);
 
   useEffect(() => {
-    getprojects().then((data) => {
+    getProjects().then((data) => {
       setprojects(data);
     });
   }, []);
