@@ -1,9 +1,21 @@
+"use client";
+
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+
+import "@/app/components/Styles_Grids.css";
 
 export default function NotesGrid({ notes }) {
-  // Aseguramos que `notes` siempre sea un array
+  const router = useRouter();
 
-  console.log(notes);
+  const openNotesDetails = (note) => {
+    const query = new URLSearchParams({
+      variable: JSON.stringify(note),
+    }).toString();
+    const url = `/main/notes/${note._id}?${query}`;
+    router.push(url);
+  };
+
   const validnotes = Array.isArray(notes) ? notes : [];
 
   return (
@@ -13,17 +25,17 @@ export default function NotesGrid({ notes }) {
           key={index}
           className="grid-item"
           id="grid-item-notes"
-          // onClick={() => openProjectDetails(project)}
+          onClick={() => openNotesDetails(note)}
         >
           <Image
-            id="documentImage"
-            src="/document.png"
-            alt="Document"
+            id="paperImage"
+            src="/paperImage.png"
+            alt=""
             width={200}
             height={200}
           />
-          <h3>{note.name}</h3>
-          <h6>{note.clientId}</h6>
+          <h3>{note.material}</h3>
+          <h6>{note.description}</h6>
         </div>
       ))}
     </div>

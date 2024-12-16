@@ -1,16 +1,16 @@
 "use client";
 
+import "@/app/components/Styles_Grids.css";
+
 import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { Router } from "next/router";
 
 export default function ProjectsGrid({ projects }) {
-  const validProjects = Array.isArray(projects) ? projects : [];
   const router = useRouter();
+  const validProjects = Array.isArray(projects) ? projects : [];
 
   const openProjectDetails = (project) => {
-    Router;
     const query = new URLSearchParams({
       variable: JSON.stringify(project),
     }).toString();
@@ -21,14 +21,18 @@ export default function ProjectsGrid({ projects }) {
   return (
     <div>
       {validProjects.map((project, index) => (
-        <div key={index} className="grid-item" id="grid-item-projects">
+        <div
+          key={index}
+          className="grid-item"
+          id="grid-item-projects"
+          onClick={() => openProjectDetails(project)}
+        >
           <Image
             id="documentImage"
             src="/document.png"
             alt="Document"
             width={200}
             height={200}
-            onClick={openProjectDetails(project)}
           />
           <h3>{project.name}</h3>
           <h6>{project.clientId}</h6>

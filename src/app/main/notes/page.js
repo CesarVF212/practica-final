@@ -11,6 +11,9 @@ import "@/app/components/Styles_Grids.css";
 // Importacion de funciones.
 import getNotes from "@/app/functions/fetch/getNotes";
 
+// Elementos React.
+import NotesGrid from "@/app/components/grids/NotesGrid";
+
 export default function Notes() {
   // Usamos un effect para poder abstaernos de revisar cada vez que se añada un nuevo note.
   const [notes, setnotes] = useState([]);
@@ -38,24 +41,7 @@ export default function Notes() {
             </div>
           </Link>
         </div>
-        {notes.map((note, index) => (
-          <div
-            key={index}
-            className="grid-item"
-            id="grid-item-notes"
-            // onClick={openNoteDetails(note)}
-          >
-            <Image
-              id="paperImage"
-              src="/paperImage.png"
-              alt=""
-              width={200}
-              height={200}
-            />
-            <h3>{note.material}</h3>
-            <h6>{note.description}</h6>
-          </div>
-        ))}
+        <NotesGrid notes={notes} />
       </div>
     </div>
   );

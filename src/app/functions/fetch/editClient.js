@@ -1,7 +1,8 @@
 // FUNCIONES
 import uploadLogo from "../uploadLogo";
 
-export default async function addClient(
+export default async function editClient(
+  id,
   name,
   addressStreet,
   addressNumber,
@@ -12,7 +13,7 @@ export default async function addClient(
   logo
 ) {
   const token = localStorage.getItem("jwt");
-  const apiClientUrl = "https://bildy-rpmaya.koyeb.app/api/client";
+  const apiClientUrl = `https://bildy-rpmaya.koyeb.app/api/client/${id}`;
 
   if (!token) {
     console.error("ERROR: No se puede autorizar el acceso a la API.");
@@ -35,7 +36,6 @@ export default async function addClient(
         province: addressRegion,
       },
       logo: logoUrl, // URL del logo subido
-      createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
       activeProjects: 0,
       pendingDeliveryNotes: 0,
@@ -43,7 +43,7 @@ export default async function addClient(
 
     // Enviamos los datos del cliente a la API
     const response = await fetch(apiClientUrl, {
-      method: "POST",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -54,12 +54,12 @@ export default async function addClient(
     if (!response.ok) {
       const error = await response.json();
       console.error("Detalle del error:", error);
-      throw new Error("Error al crear el cliente.");
+      throw new Error("Error al editar el cliente.");
     }
 
     return await response.json();
   } catch (error) {
-    console.error("ERROR al guardar el cliente:", error);
+    console.error("ERROR al editar el cliente:", error);
     throw error;
   }
 }
