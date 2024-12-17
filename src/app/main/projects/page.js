@@ -23,25 +23,5 @@ export default function Projects() {
     });
   }, []);
 
-  return (
-    <div className="general-container">
-      <div className="grid-container">
-        <div className="add-button">
-          <Link href="/projects/newproject">
-            <div id="addButton" className="add-content">
-              <Image
-                id="plusImage"
-                src="/plus.png"
-                alt=""
-                width={200}
-                height={200}
-              />
-              <span className="add-text">Añadir un projecto</span>
-            </div>
-          </Link>
-        </div>
-        <ProjectGrid projects={projects} />
-      </div>
-    </div>
-  );
+  return <ProjectGrid projects={projects} />;
 }

@@ -52,47 +52,52 @@ export default function ClientDetails() {
   }
 
   return (
-    <div>
-      <div className="flex flex-row" id="general-box">
-        <div id="photo-box"></div>
-        <Image
-          id="logo"
-          src={selectProfileIcon(client.logo)}
-          alt="Document"
-          width={200}
-          height={200}
-          className="mr-10"
-        />
-        <div id="info-box" className="flex flex-col">
-          <span className="flex flex-row justify-between">
-            <h4>
+    <div className="p-6 bg-white shadow-md rounded-lg max-w-4xl mx-auto">
+      <div className="flex flex-row items-start gap-8">
+        <div className="w-48 h-48 rounded-full overflow-hidden border-4 border-gray-200">
+          <Image
+            src={selectProfileIcon(client.logo)}
+            alt="Logo Cliente"
+            width={200}
+            height={200}
+            className="object-cover w-full h-full"
+          />
+        </div>
+        <div className="flex flex-col flex-grow">
+          <div className="flex justify-between items-center mb-4">
+            <h4 className="text-xl font-semibold text-gray-800">
               Nombre: <b>{client.name}</b>
             </h4>
             <Image
-              id="edit"
               src={"/edit.png"}
               alt="Editar"
-              width={50}
-              height={50}
+              width={30}
+              height={30}
+              className="cursor-pointer hover:scale-105 transition-transform"
               onClick={() => editClientPage(client)}
             />
-          </span>
-          <br></br>
-          <h5>
-            Dirección: {client.address.street} {client.address.number}.
-          </h5>
-          <h5>
-            {client.address.city} {client.address.postal}
-            {". "}
-            {client.address.province}
-          </h5>
-          <br></br>
-          <h4>CIF: {client.cif}</h4>
-          <br></br>
-          <h5>Creado: {dateFormater(client.createdAt)}.</h5>
-          <h5>Modificado: {dateFormater(client.updatedAt)}.</h5>
+          </div>
+          <p className="text-gray-700 mb-2">
+            <span className="font-semibold">Dirección:</span>{" "}
+            {client.address.street} {client.address.number},{" "}
+            {client.address.city}, {client.address.province}{" "}
+            {client.address.postal}.
+          </p>
+          <p className="text-gray-700 mb-2">
+            <span className="font-semibold">CIF:</span> {client.cif}
+          </p>
+          <p className="text-gray-700 mb-4">
+            <span className="font-semibold">Creado:</span>{" "}
+            {dateFormater(client.createdAt)}
+          </p>
+          <p className="text-gray-700 mb-4">
+            <span className="font-semibold">Modificado:</span>{" "}
+            {dateFormater(client.updatedAt)}
+          </p>
           <div>
-            <h3>PROYECTOS:</h3>
+            <h3 className="text-xl font-semibold text-gray-800 mb-2">
+              PROYECTOS:
+            </h3>
             <ProjectsGrid projects={projects} />
           </div>
         </div>

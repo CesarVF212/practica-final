@@ -1,125 +1,116 @@
+/* GENERAL CONTAINER */
 .general-container {
-  width: 100%;
+  padding: 1rem;
 }
 
+/* GRID CONTAINER */
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(200px, 1fr)
+  ); /* Más ítems por fila */
   gap: 1rem;
-  width: 100%;
+  padding: 1rem;
 }
 
-@media (max-width: 1500px) {
-  /* Para pantallas medianas (tabletas) */
+/* GRID ITEM */
+.grid-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.grid-item:hover {
+  background-color: #eaeaea;
+  transform: scale(1.03);
+}
+
+/* IMAGE CONTAINER */
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  width: 100%; /* Asegura que el contenedor ocupe el ancho completo */
+  height: 100%; /* Asegura que el contenedor ocupe el alto completo */
+}
+
+.profile-image,
+.plus-image,
+#paperImage,
+#documentImage {
+  width: 100px;
+  height: 100px;
+  object-fit: cover; /* Usa cover para asegurar que la imagen llene el área circular */
+  border-radius: 50%; /* Mantiene la forma circular */
+  transition: transform 0.3s ease;
+}
+
+.profile-image:hover,
+.plus-image:hover,
+#paperImage:hover,
+#documentImage:hover {
+  transform: scale(1.1);
+}
+
+/* TEXT INSIDE GRID ITEM */
+.grid-item h3,
+.grid-item h5,
+.grid-item h6,
+.grid-item p {
+  margin: 0.2rem 0;
+  text-align: center;
+  color: #333;
+}
+
+.grid-item h3 {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.grid-item h5 {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.grid-item h6,
+.grid-item p {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* RESPONSIVE ADJUSTMENTS */
+@media (max-width: 1024px) {
   .grid-container {
-    grid-template-columns: repeat(3, 1fr); /* 2 columnas */
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   }
 }
 
 @media (max-width: 768px) {
-  /* Para pantallas medianas (tabletas) */
   .grid-container {
-    grid-template-columns: repeat(2, 1fr); /* 2 columnas */
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+
+  .profile-image,
+  .plus-image,
+  #paperImage,
+  #documentImage {
+    width: 80px;
+    height: 80px;
   }
 }
 
 @media (max-width: 480px) {
   .grid-container {
-    grid-template-columns: 1fr; /* 1 columna */
+    grid-template-columns: 1fr;
   }
-}
-
-.add-button {
-  padding: 1.2rem;
-  background-color: rgb(199, 128, 145);
-  box-shadow: 5px 5px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.add-button:hover {
-  background-color: #292b3a;
-  cursor: pointer;
-}
-
-.add-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.add-button img {
-  width: 65px;
-  height: 65px;
-}
-
-.add-text {
-  font-size: 0.875rem;
-  font-weight: 500;
-  margin-top: 0.5rem;
-}
-
-.grid-item {
-  display: flex;
-  align-items: center;
-  padding: 1.2rem;
-  background-color: #e0e0e0;
-  box-shadow: 5px 5px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.grid-item:hover {
-  background-color: #d3d3d3;
-  cursor: pointer;
-}
-
-.profile-image {
-  border-radius: 50%;
-  width: 100px;
-  height: 100px;
-}
-
-.image-container {
-  margin-top: 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Estilos del grid de proyectos */
-
-#documentImage {
-  width: 80%;
-}
-
-#grid-item-projects {
-  background-color: #e0e0e000;
-  box-shadow: 0px 0px rgba(0, 0, 0, 0.2);
-}
-
-/* Estilos del grid de albaranes */
-#paperImage {
-  width: 60%;
-}
-
-#grid-item-notes {
-  display: flex;
-  max-width: 8vw;
-  padding: 0rem;
-  background-color: #e0e0e000;
-  box-shadow: 0px 0px rgba(0, 0, 0, 0.2);
-  justify-content: center;
-  align-items: center;
-}
-
-#grid-item-notes h3,
-#grid-item-notes h6 {
-  padding-right: 0.5rem;
-  padding-left: 0.5rem;
 }

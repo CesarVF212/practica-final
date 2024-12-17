@@ -1,10 +1,11 @@
 "use client";
 
-import "@/app/components/Styles_Grids.css";
-
 import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+
+import "@/app/components/Styles_Grids.css";
 
 export default function ProjectsGrid({ projects }) {
   const router = useRouter();
@@ -19,25 +20,42 @@ export default function ProjectsGrid({ projects }) {
   };
 
   return (
-    <div>
-      {validProjects.map((project, index) => (
-        <div
-          key={index}
-          className="grid-item"
-          id="grid-item-projects"
-          onClick={() => openProjectDetails(project)}
-        >
-          <Image
-            id="documentImage"
-            src="/document.png"
-            alt="Document"
-            width={200}
-            height={200}
-          />
-          <h3>{project.name}</h3>
-          <h6>{project.clientId}</h6>
+    <div className="general-container">
+      <div className="grid-container">
+        <div className="grid-item">
+          <Link href={"/main/projects/newproject"}>
+            <div className="image-container">
+              <Image
+                src={"/plus.png"}
+                alt=""
+                width={150}
+                height={150}
+                className="plus-image"
+              />
+            </div>
+          </Link>
         </div>
-      ))}
+        {validProjects.map((project, index) => (
+          <div
+            key={index}
+            className="grid-item"
+            id="grid-item-projects"
+            onClick={() => openProjectDetails(project)}
+          >
+            <div className="image-container">
+              <Image
+                src="/document.png"
+                alt="Document"
+                width={100}
+                height={100}
+                className="item-image"
+              />
+            </div>
+            <h5 className="item-title">{project.name}</h5>
+            <p className="item-description">{project.clientId}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

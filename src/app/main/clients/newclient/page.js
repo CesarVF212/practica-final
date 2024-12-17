@@ -1,7 +1,7 @@
 "use client";
 
-import NewClient from "@/app/components/forms/newClient";
+import NewClientForm from "@/app/components/forms/NewClientForm";
 
 export default function Newclient() {
-  return <NewClient></NewClient>;
+  return <NewClientForm></NewClientForm>;
 }

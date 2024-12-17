@@ -10,7 +10,7 @@ import Link from "next/link";
 import addClient from "@/app/functions/fetch/addClient";
 import containsNumbers from "@/app/functions/containsNumbers";
 
-export default function NewClient() {
+export default function NewClientFor() {
   const router = useRouter();
 
   const handleSubmit = (e) => {
@@ -57,7 +57,7 @@ export default function NewClient() {
     )
       .then(() => {
         alert(`Se ha guardado el cliente ${name}`);
-        router.push("../main");
+        router.push("/main/clients");
       })
       .catch((error) => {
         console.error("ERROR al guardar el cliente:", error);
@@ -66,9 +66,9 @@ export default function NewClient() {
   };
 
   return (
-    <div className="form-box w-[35vw] h-[50vh]">
+    <div className="flex flex-auto justify-center">
       <h2>NUEVO CLIENTE</h2>
-      <form className="w-[80%]" onSubmit={handleSubmit}>
+      <form className="flex flex-auto justify-center" onSubmit={handleSubmit}>
         <div>
           <label htmlFor="name-box">Cliente / Empresa:</label>
           <input type="text" id="name-box" name="name" required />
@@ -149,7 +149,7 @@ export default function NewClient() {
           />
         </div>
         <div className="flex flex-row justify-between">
-          <Link href={"../main"}>
+          <Link href={"/main/clients"}>
             <button
               type="button"
               className="bg-red-500 text-white font-bold py-2 px-4 rounded"

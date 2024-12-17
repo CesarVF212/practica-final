@@ -1,10 +1,16 @@
 // LIBRERIAS
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 // FUNCIONES.
-import getClients from "@/app/functions/fetch/getClients";
+import editClient from "@/app/functions/fetch/editClient";
+import containsNumbers from "@/app/functions/containsNumbers";
 
-export default function EditClient(client) {
+// CSS.
+import "@/app/globals.css";
+import "@/app/components/Styles_Forms.css";
+
+export default function EditClientForm({ client }) {
   const router = useRouter();
 
   const handleSubmit = (e) => {
@@ -26,10 +32,9 @@ export default function EditClient(client) {
       !addressCity ||
       !addressRegion ||
       !addressPostalcode ||
-      !cif ||
-      !logoFile
+      !cif
     ) {
-      alert("ERROR: Todos los campos son obligatorios, incluyendo el logo.");
+      alert("ERROR: Le falta por añadir campos obligatorios.");
       return;
     }
 
@@ -39,7 +44,7 @@ export default function EditClient(client) {
     }
 
     editClient(
-      id,
+      client._id,
       name,
       addressStreet,
       addressNumber,
@@ -51,7 +56,7 @@ export default function EditClient(client) {
     )
       .then(() => {
         alert(`Se ha editado el cliente ${name}`);
-        router.push("../main");
+        router.push("/main/clients");
       })
       .catch((error) => {
         console.error("ERROR al editar el cliente:", error);
@@ -60,10 +65,10 @@ export default function EditClient(client) {
   };
 
   return (
-    <div className="form-box w-[35vw] h-[50vh]">
+    <div className="flex flex-auto justify-center">
       {console.log(client)}
-      <h2>EDITAR CLIENTE</h2>
-      <form className="w-[80%]" onSubmit={handleSubmit}>
+      <h4>EDITAR CLIENTE</h4>
+      <form className="flex flex-auto justify-center" onSubmit={handleSubmit}>
         <div>
           <label htmlFor="name-box">Cliente / Empresa:</label>
           <input
@@ -118,7 +123,7 @@ export default function EditClient(client) {
               name="address-code"
               min="0"
               max="99999"
-              defaultValue={client.address.code}
+              defaultValue={client.address.postal}
               required
             />
           </span>
@@ -147,16 +152,10 @@ export default function EditClient(client) {
         </div>
         <div>
           <label htmlFor="logo-box">Logo:</label>
-          <input
-            type="file"
-            id="logo-box"
-            name="logo"
-            accept="image/*"
-            required
-          />
+          <input type="file" id="logo-box" name="logo" accept="image/*" />
         </div>
         <div className="flex flex-row justify-between">
-          <Link href={"../main"}>
+          <Link href={"/main/clients"}>
             <button
               type="button"
               className="bg-red-500 text-white font-bold py-2 px-4 rounded"

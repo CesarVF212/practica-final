@@ -24,25 +24,5 @@ export default function Notes() {
     });
   }, []);
 
-  return (
-    <div className="general-container">
-      <div className="grid-container">
-        <div className="add-button">
-          <Link href="notes/newnote">
-            <div id="addButton" className="add-content">
-              <Image
-                id="plusImage"
-                src="/plus.png"
-                alt=""
-                width={200}
-                height={200}
-              />
-              <span className="add-text">Añadir un alabrán</span>
-            </div>
-          </Link>
-        </div>
-        <NotesGrid notes={notes} />
-      </div>
-    </div>
-  );
+  return <NotesGrid notes={notes} />;
 }
