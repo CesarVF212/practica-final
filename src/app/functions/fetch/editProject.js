@@ -32,7 +32,6 @@ export default function editProject(
     },
     code: `${id}:${client_id}`,
     clientId: client_id,
-    createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   };
 

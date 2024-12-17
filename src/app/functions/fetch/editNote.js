@@ -1,7 +1,8 @@
-export default function editNote(
+export default function addNote(
   noteId,
   clientId,
   projectId,
+  format,
   material,
   hours,
   description,
@@ -20,10 +21,12 @@ export default function editNote(
   let data = {
     clientId: clientId,
     projectId: projectId,
-    format: material,
+    format: format,
+    material: material,
     hours: parseInt(hours, 10),
     description: description,
     workdate: workdate,
+    updatedAt: new Date().toISOString(),
   };
 
   return fetch(url, {

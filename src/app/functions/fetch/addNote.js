@@ -1,6 +1,7 @@
 export default function addNote(
   clientId,
   projectId,
+  format,
   material,
   hours,
   description,
@@ -19,21 +20,13 @@ export default function addNote(
   let data = {
     clientId: clientId,
     projectId: projectId,
-    format: "material",
-    material: material,
-    hours: parseInt(hours, 10),
-    description: description,
-    workdate: "1/2/2024",
-  };
-
-  data = {
-    clientId: "671ea30c01da0c4157964045", // Un ID de cliente de ejemplo
-    projectId: "671ea31e01da0c4157964049", // Un ID de proyecto de ejemplo
-    format: "material",
+    format: format,
     material: material,
     hours: parseInt(hours, 10),
     description: description,
     workdate: workdate,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
   };
 
   return fetch(url, {

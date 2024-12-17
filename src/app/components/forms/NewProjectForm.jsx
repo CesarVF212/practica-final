@@ -78,7 +78,7 @@ export default function NewProjectForm() {
       .then(() => {
         alert(`Se ha guardado el proyecto ${name}`);
         // Redirigir a la página principal después de guardar
-        router.push("../projects");
+        router.push("/main/projects");
       })
       .catch((error) => {
         alert("ERROR: No se pudo guardar el proyecto. Revisa la consola.");
@@ -159,7 +159,7 @@ export default function NewProjectForm() {
           </select>
         </div>
         <div className="flex flex-row justify-between">
-          <Link href={"../projects"}>
+          <Link href={"/main/projects"}>
             <button
               type="button"
               className="bg-red-500 text-white font-bold py-2 px-4 rounded"

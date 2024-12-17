@@ -43,11 +43,11 @@ export default function NewNoteForm() {
     const clientId = document.getElementById("client-box").value;
     const projectId = document.getElementById("project-box").value;
     const material = document.getElementById("material-box").value;
+    const format = document.getElementById("format-box").value;
     const hours = document.getElementById("number-box").value;
     const description = document.getElementById("description-box").value;
     const workdate = document.getElementById("date-box").value;
 
-    // Verificamos que el nombre y la dirección no estén vacías.
     if (
       !clientId ||
       !projectId ||
@@ -64,7 +64,7 @@ export default function NewNoteForm() {
       .then(() => {
         alert(`Se ha guardado el albarán para ${material || hours}`);
         // Redirigir a la página principal después de guardar
-        router.push("@/app/main/notes");
+        router.push("/main/notes");
       })
       .catch((error) => {
         alert("ERROR: No se pudo guardar el proyecto. Revisa la consola.");
@@ -137,7 +137,7 @@ export default function NewNoteForm() {
         </div>
         <br />
         <div className="flex flex-row justify-between">
-          <Link href={"@/app/main/notes"}>
+          <Link href={"/main/notes"}>
             <button
               type="button"
               className="bg-red-500 text-white font-bold py-2 px-4 rounded"

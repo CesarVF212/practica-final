@@ -37,8 +37,6 @@ export default async function addClient(
       logo: logoUrl, // URL del logo subido
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
-      activeProjects: 0,
-      pendingDeliveryNotes: 0,
     };
 
     // Enviamos los datos del cliente a la API

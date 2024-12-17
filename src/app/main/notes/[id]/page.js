@@ -41,7 +41,7 @@ export default function NotesDetailPage() {
         <div className="flex flex-col flex-grow">
           <div className="flex justify-between items-center mb-4">
             <h4 className="text-xl font-semibold text-gray-800">
-              {note.description || "Sin descripción disponible."}
+              {note.material || "Sin descripción disponible."}
             </h4>
             <div className="flex gap-4">
               <Image
@@ -63,7 +63,7 @@ export default function NotesDetailPage() {
             </div>
           </div>
           <p className="text-gray-700 mb-2">
-            <span className="font-semibold">Formato:</span> {note.format}
+            <span className="font-semibold">Tipo:</span> {note.format}
           </p>
           <p className="text-gray-700 mb-2">
             <span className="font-semibold">Horas:</span> {note.hours}
@@ -73,7 +73,8 @@ export default function NotesDetailPage() {
             {note.pending ? "Pendiente" : "Completado"}
           </p>
           <p className="text-gray-700 mb-2">
-            <span className="font-semibold">Descripcion:</span>{" "}
+            <span className="font-semibold">Descripcion:</span>
+            {note.description}
           </p>
           <p className="text-gray-700 mb-4">
             <span className="font-semibold">Creado:</span>{" "}
