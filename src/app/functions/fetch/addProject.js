@@ -1,12 +1,17 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
 export default function addProject(
   name,
-  notes,
   addressStreet,
   addressNumber,
   addressCity,
   addressRegion,
   addressPostalcode,
-  client_id
+  client_id,
+  email,
+  totalProjects
 ) {
   const url = "https://bildy-rpmaya.koyeb.app/api/project";
   const token = localStorage.getItem("jwt");
@@ -21,8 +26,8 @@ export default function addProject(
 
   const data = {
     name,
-    projectCode: "Identificador de proyecto",
-    email: "ejemplo@gmail.com",
+    projectCode: `${client_id}:PROY:${totalProjects}`,
+    email: email,
     address: {
       street: addressStreet,
       number: addressNumber,
@@ -30,7 +35,7 @@ export default function addProject(
       city: addressCity,
       province: addressRegion,
     },
-    code: "Código interno del proyecto",
+    code: `${totalProjects}`,
     clientId: client_id,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),

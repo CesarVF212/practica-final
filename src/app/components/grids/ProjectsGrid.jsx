@@ -52,7 +52,6 @@ export default function ProjectsGrid({ projects }) {
               />
             </div>
             <h5 className="item-title">{project.name}</h5>
-            <p className="item-description">{project.clientId}</p>
           </div>
         ))}
       </div>

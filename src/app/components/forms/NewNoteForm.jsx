@@ -17,7 +17,7 @@ export default function NewNoteForm() {
 
   const [clients, setClients] = useState([]);
   const [projects, setProjects] = useState([]);
-  const [format, setFormat] = useState(""); // Añadido para almacenar el formato
+  const [format, setFormat] = useState("");
 
   useEffect(() => {
     async function fetchData() {
@@ -73,7 +73,7 @@ export default function NewNoteForm() {
 
   return (
     <div className="flex flex-auto justify-center">
-      <h2>NUEVO PROYECTO</h2>
+      <h2>NUEVO ALBARAN</h2>
       <form className="flex flex-auto justify-center" onSubmit={handleSubmit}>
         <br />
         <div className="work-box">

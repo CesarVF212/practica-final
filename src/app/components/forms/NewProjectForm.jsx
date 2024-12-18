@@ -8,6 +8,7 @@ import Link from "next/link";
 import containsNumbers from "@/app/functions/containsNumbers";
 import addProject from "@/app/functions/fetch/addProject";
 import getClients from "@/app/functions/fetch/getClients";
+import getProjects from "@/app/functions/fetch/getProjects";
 
 // CSS.
 import "@/app/globals.css";
@@ -17,6 +18,7 @@ export default function NewProjectForm() {
   const router = useRouter();
 
   const [clients, setClients] = useState([]);
+  const [totalProjects, setTotalProjects] = useState([]);
 
   useEffect(() => {
     // Cargar clientes al montar el componente
@@ -28,7 +30,19 @@ export default function NewProjectForm() {
         console.error("Error al cargar clientes:", error);
       }
     }
+
+    // Cargar proyectos al montar el componente
+    async function fetchProjects() {
+      try {
+        const fetchedProjects = await getProjects();
+        setTotalProjects(fetchedProjects);
+      } catch (error) {
+        console.error("Error al cargar proyectos:", error);
+      }
+    }
+
     fetchClients();
+    fetchProjects();
   }, []);
 
   const handleSubmit = (e) => {
@@ -42,7 +56,8 @@ export default function NewProjectForm() {
     const addressRegion = document.getElementById("address-region-box").value;
     const addressPostalcode = document.getElementById("address-code-box").value;
     const notes = document.getElementById("notes-box").value;
-    const client_id = document.getElementById("client-box").value;
+    const email = document.getElementById("email-box").value;
+    const clientId = document.getElementById("client-box").value;
 
     // Verificamos que todos los campos estén llenos
     if (
@@ -52,7 +67,8 @@ export default function NewProjectForm() {
       !addressCity ||
       !addressRegion ||
       !addressPostalcode ||
-      !client_id
+      !email ||
+      !clientId
     ) {
       alert("ERROR: No se han introducido todos los datos necesarios.");
       return;
@@ -67,13 +83,14 @@ export default function NewProjectForm() {
     // Llamamos a la función para añadir el proyecto
     addProject(
       name,
-      notes,
       addressStreet,
       addressNumber,
       addressCity,
       addressRegion,
       addressPostalcode,
-      client_id
+      clientId,
+      email,
+      totalProjects.length
     )
       .then(() => {
         alert(`Se ha guardado el proyecto ${name}`);
@@ -144,8 +161,8 @@ export default function NewProjectForm() {
           </span>
         </div>
         <div>
-          <label htmlFor="notes-box">Notas del proyecto:</label>
-          <input type="text" id="notes-box" name="notes" />
+          <label htmlFor="email-box">Email:</label>
+          <input type="email" id="email-box" name="email" />
         </div>
         <div>
           <label htmlFor="client-box">Cliente: </label>

@@ -18,7 +18,8 @@ export default function NotesDetailPage() {
   const variable = searchParams.get("variable"); // La variable pasada como query
   const note = variable ? JSON.parse(variable) : null; // Parsear la nota si existe
 
-  function editNotePage(note) {
+  function EditNotePage(note) {
+    // Cambié a mayúscula para cumplir con la convención
     const query = new URLSearchParams({
       variable: JSON.stringify(note),
     }).toString();
@@ -50,7 +51,7 @@ export default function NotesDetailPage() {
                 width={30}
                 height={30}
                 className="cursor-pointer hover:scale-105 transition-transform"
-                onClick={() => editNotePage(note)}
+                onClick={() => EditNotePage(note)} // Cambié a la función con nombre correcto
               />
               <Image
                 src={"/download.png"}
@@ -69,11 +70,11 @@ export default function NotesDetailPage() {
             <span className="font-semibold">Horas:</span> {note.hours}
           </p>
           <p className="text-gray-700 mb-2">
-            <span className="font-semibold">Estado:</span>{" "}
+            <span className="font-semibold">Estado: </span>
             {note.pending ? "Pendiente" : "Completado"}
           </p>
           <p className="text-gray-700 mb-2">
-            <span className="font-semibold">Descripcion:</span>
+            <span className="font-semibold">Descripcion: </span>
             {note.description}
           </p>
           <p className="text-gray-700 mb-4">

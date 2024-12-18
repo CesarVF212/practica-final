@@ -4,6 +4,7 @@ import "@/app/globals.css";
 import "@/app/components/Styles_Grids.css";
 
 import { useRouter } from "next/navigation";
+import LogoBig from "@/app/components/LogoBig";
 
 // Función para verificar el código
 function checkValidation(code) {
@@ -45,7 +46,7 @@ export default function Verification() {
 
     checkValidation(code).then((success) => {
       if (success) {
-        router.push("../../main/clients");
+        router.push("/login");
       } else {
         alert("Código de verificación inválido. Inténtelo nuevamente.");
       }
@@ -53,22 +54,18 @@ export default function Verification() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-[#f4f4f4] px-4">
+    <div className="flex flex-col items-center justify-center min-h-screen">
       {/* Título principal */}
       <h1 className="font-bold mb-8 mt-8 text-center text-4xl max-md:text-3xl max-sm:text-2xl">
-        CAESAR'S VERIFICATION
+        CAESAR&apos;S ADMINISTRATION
       </h1>
 
       {/* Layout principal */}
       <div className="flex flex-col md:flex-row items-center justify-center w-full gap-8">
         {/* Imagen del Logo */}
         <div className="w-full flex justify-center md:w-1/3">
-          <div className="w-20 h-20 md:w-28 md:h-28">
-            <img
-              src="/logo.png"
-              alt="Logo"
-              className="w-full h-full object-contain"
-            />
+          <div className="w-full flex justify-center md:w-1/3">
+            <LogoBig />
           </div>
         </div>
 

@@ -1,13 +1,13 @@
 export default function editProject(
-  _id,
+  id,
   name,
-  notes,
   addressStreet,
   addressNumber,
   addressCity,
   addressRegion,
   addressPostalcode,
-  client_id
+  client_id,
+  email
 ) {
   const url = `https://bildy-rpmaya.koyeb.app/api/project/${id}`;
   const token = localStorage.getItem("jwt");
@@ -30,6 +30,7 @@ export default function editProject(
       city: addressCity,
       province: addressRegion,
     },
+    email: email,
     code: `${id}:${client_id}`,
     clientId: client_id,
     updatedAt: new Date().toISOString(),

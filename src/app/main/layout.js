@@ -2,8 +2,13 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function MainLayout({ children }) {
+  const Router = useRouter();
+  const token = localStorage.getItem("jwt");
+  if (!token) Router.push("/login");
+
   return (
     <div className="flex">
       {/* Sidebar */}
@@ -41,8 +46,6 @@ export default function MainLayout({ children }) {
           </Link>
         </nav>
       </div>
-
-      {/* Main Content */}
       <main className="flex-1 ml-40 p-8 bg-[var(--background)]">
         {children}
       </main>

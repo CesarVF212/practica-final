@@ -32,10 +32,9 @@ export default function NewClientFor() {
       !addressCity ||
       !addressRegion ||
       !addressPostalcode ||
-      !cif ||
-      !logoFile
+      !cif
     ) {
-      alert("ERROR: Todos los campos son obligatorios, incluyendo el logo.");
+      alert("ERROR: Te faltan campos obligatorios.");
       return;
     }
 
@@ -140,13 +139,7 @@ export default function NewClientFor() {
         </div>
         <div>
           <label htmlFor="logo-box">Logo:</label>
-          <input
-            type="file"
-            id="logo-box"
-            name="logo"
-            accept="image/*"
-            required
-          />
+          <input type="file" id="logo-box" name="logo" accept="image/*" />
         </div>
         <div className="flex flex-row justify-between">
           <Link href={"/main/clients"}>

@@ -36,12 +36,13 @@ function loginPostRequest(email, password) {
 
 export default function Login() {
   const router = useRouter();
+  localStorage.removeItem("jwt");
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       {/* Título */}
-      <h1 className="font-bold mb-8 mt-8 text-center max-md:text-4xl">
-        CAESAR'S ADMINISTRATION
+      <h1 className="font-bold mb-8 mt-4 text-center max-md:text-4xl">
+        CAESAR&apos;S ADMINISTRATION
       </h1>
 
       {/* Layout principal */}
@@ -100,7 +101,7 @@ export default function Login() {
 
             {/* Botones */}
             <div className="flex flex-row justify-between mt-4 gap-4">
-              <Link href="../register">
+              <Link href="/register">
                 <button
                   type="button"
                   className="bg-red-500 text-white py-2 px-4 rounded"

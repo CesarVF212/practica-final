@@ -2,8 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 import "@/app/components/Styles_Forms.css";
-import Link from "next/link";
-import Image from "next/image";
 
 import "@/app/globals.css";
 import "@/app/components/Styles_Grids.css";

@@ -5,7 +5,7 @@ import EditClientForm from "@/app/components/forms/EditClientForm";
 // LIBRERIAS.
 import { useSearchParams, useRouter } from "next/navigation";
 
-export default function editClientPage() {
+export default function EditClientPage() {
   const searchParams = useSearchParams(); // Obtener los parámetros de consulta
 
   const variable = searchParams.get("variable"); // La variable pasada como query

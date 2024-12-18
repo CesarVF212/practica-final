@@ -19,10 +19,13 @@ export default async function addClient(
     return;
   }
 
+  let logoUrl = "";
+
   try {
     // Subimos el logo a Cloudinary y obtenemos la URL
-    const logoUrl = await uploadLogo(logo);
-
+    if (logo) {
+      logoUrl = await uploadLogo(logo);
+    }
     // Construimos el cuerpo de la solicitud
     const clientData = {
       name,

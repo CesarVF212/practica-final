@@ -41,8 +41,8 @@ export default function EditProjectForm({ project }) {
     const addressCity = document.getElementById("address-city-box").value;
     const addressRegion = document.getElementById("address-region-box").value;
     const addressPostalcode = document.getElementById("address-code-box").value;
-    const notes = document.getElementById("notes-box").value;
     const client_id = document.getElementById("client-box").value;
+    const email = document.getElementById("email-box").value;
 
     // Verificamos que todos los campos estén llenos
     if (
@@ -68,13 +68,13 @@ export default function EditProjectForm({ project }) {
     editProject(
       project._id,
       name,
-      notes,
       addressStreet,
       addressNumber,
       addressCity,
       addressRegion,
       addressPostalcode,
-      client_id
+      client_id,
+      email
     )
       .then(() => {
         alert(`Se ha guardado el proyecto ${name}`);
@@ -167,12 +167,12 @@ export default function EditProjectForm({ project }) {
           </span>
         </div>
         <div>
-          <label htmlFor="notes-box">Notas del proyecto:</label>
+          <label htmlFor="email-box">Email:</label>
           <input
-            type="text"
-            id="notes-box"
-            name="notes"
-            defaultValue={project.notes}
+            type="email"
+            id="email-box"
+            name="email"
+            defaultValue={project.email}
           />
         </div>
         <div>

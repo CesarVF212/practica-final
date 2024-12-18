@@ -6,7 +6,8 @@ import EditProjectForm from "@/app/components/forms/EditProjectForm";
 // LIBRERIAS.
 import { useSearchParams } from "next/navigation";
 
-export default function Page() {
+export default function EditClientPage() {
+  // Cambié el nombre de la función
   const searchParams = useSearchParams(); // Obtener los parámetros de consulta
 
   const variable = searchParams.get("variable"); // La variable pasada como query

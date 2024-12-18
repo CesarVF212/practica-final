@@ -64,7 +64,7 @@ export default function Register() {
 
               RegisterPostRequest(email, password).then((success) => {
                 if (success) {
-                  router.push("./verification");
+                  router.push("/register/verification");
                 } else {
                   alert("Ha ocurrido un error al registrarse");
                 }
@@ -131,7 +131,7 @@ export default function Register() {
 
             {/* Botones */}
             <div className="flex flex-row justify-between mt-6 gap-4">
-              <Link href="../login">
+              <Link href="/login">
                 <button
                   type="button"
                   className="bg-red-500 text-white py-2 px-4 rounded w-full"
